@@ -3,278 +3,260 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Guillaume de l'Estourbeillon | Marketing & Tech</title>
+    <title>Guillaume de l'Estourbeillon</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Google Fonts: Playfair Display pour les titres (effet magazine/Offmenu) et Inter pour le texte -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
     
     <style>
         tailwind.config = {
             theme: {
                 extend: {
                     fontFamily: {
-                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['"Playfair Display"', 'serif'],
                     },
                     colors: {
-                        brand: {
-                            50: '#eff6ff',
-                            100: '#dbeafe',
-                            500: '#3b82f6', // Bleu principal vibrant
-                            600: '#2563eb', // Bleu au survol
-                            900: '#1e3a8a', // Bleu très foncé pour textes
-                        },
-                        accent: '#06b6d4', // Cyan pour les petites touches
-                        dark: '#0f172a', // Gris très foncé presque noir
+                        offwhite: '#F4F4F0', /* Le beige clair caractéristique d'Offmenu */
+                        offblack: '#1A1A1A',
+                        offborder: '#E2E2DC',
+                        accent: '#4A4A4A'
                     }
                 }
             }
         }
 
         /* Douce animation d'apparition */
-        .fade-up {
+        .reveal {
             opacity: 0;
             transform: translateY(20px);
-            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+            transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
         }
-        .fade-up.visible {
+        .reveal.active {
             opacity: 1;
             transform: translateY(0);
         }
+        
+        /* Pour cacher la scrollbar mais garder le scroll (sur les listes d'images) */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-800 font-sans antialiased selection:bg-brand-500 selection:text-white">
+<body class="bg-offwhite text-offblack font-sans antialiased selection:bg-offblack selection:text-white">
 
-    <!-- NAVIGATION -->
-    <nav class="fixed w-full top-0 z-50 bg-white/80 backdrop-blur-lg border-b border-slate-200">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-20">
-                <a href="#accueil" class="text-xl font-bold text-brand-900 flex items-center gap-2">
-                    <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-brand-500 to-accent text-white flex items-center justify-center text-sm">G</div>
-                    de l'Estourbeillon
+    <!-- NAVIGATION (Style Header Éditorial) -->
+    <nav class="fixed w-full top-0 z-50 bg-offwhite/90 backdrop-blur-md border-b border-offborder">
+        <div class="max-w-7xl mx-auto px-4 sm:px-8">
+            <div class="flex justify-between items-center h-16 md:h-20">
+                <!-- Logo Type -->
+                <a href="#accueil" class="font-serif text-xl md:text-2xl font-semibold tracking-tight hover:opacity-70 transition-opacity">
+                    G. de l'Estourbeillon.
                 </a>
                 
-                <div class="hidden md:flex space-x-8">
-                    <a href="#vision" class="text-sm font-medium text-slate-600 hover:text-brand-600 transition-colors">Ma Vision</a>
-                    <a href="#projets" class="text-sm font-medium text-slate-600 hover:text-brand-600 transition-colors">Projets</a>
-                    <a href="#competences" class="text-sm font-medium text-slate-600 hover:text-brand-600 transition-colors">Compétences</a>
+                <!-- Menu -->
+                <div class="hidden md:flex space-x-12">
+                    <a href="#travaux" class="text-sm font-medium tracking-wide hover:text-accent transition-colors">Travaux</a>
+                    <a href="#apropos" class="text-sm font-medium tracking-wide hover:text-accent transition-colors">À propos</a>
+                    <a href="#contact" class="text-sm font-medium tracking-wide hover:text-accent transition-colors">Contact</a>
                 </div>
 
-                <div class="hidden md:block">
-                    <a href="#contact" class="text-sm font-semibold bg-brand-900 text-white px-5 py-2.5 rounded-full hover:bg-brand-600 transition-all shadow-sm hover:shadow-md">
-                        Contact
-                    </a>
-                </div>
+                <a href="https://www.linkedin.com/in/guillaume-de-l-estourbeillon" target="_blank" class="hidden md:flex items-center gap-2 text-sm font-medium border border-offborder px-4 py-2 rounded-full hover:bg-offblack hover:text-white transition-all">
+                    LinkedIn <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+                </a>
 
-                <!-- Menu Burger -->
-                <button id="mobile-btn" class="md:hidden text-slate-600 p-2">
-                    <i data-lucide="menu"></i>
+                <!-- Mobile Menu Button -->
+                <button id="mobile-btn" class="md:hidden p-2 -mr-2">
+                    <i data-lucide="menu" class="w-6 h-6"></i>
                 </button>
             </div>
         </div>
-        <!-- Menu Mobile -->
-        <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-slate-200 p-4 space-y-4">
-            <a href="#vision" class="block text-base font-medium text-slate-700">Ma Vision</a>
-            <a href="#projets" class="block text-base font-medium text-slate-700">Projets</a>
-            <a href="#competences" class="block text-base font-medium text-slate-700">Compétences</a>
-            <a href="#contact" class="block text-base font-bold text-brand-600 pt-2 border-t border-slate-100">Me contacter</a>
+        
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-offwhite border-b border-offborder px-4 pt-2 pb-6 space-y-4">
+            <a href="#travaux" class="block text-lg font-serif">Travaux</a>
+            <a href="#apropos" class="block text-lg font-serif">À propos</a>
+            <a href="#contact" class="block text-lg font-serif">Contact</a>
+            <a href="https://www.linkedin.com/in/guillaume-de-l-estourbeillon" class="block text-sm font-medium pt-4 border-t border-offborder">LinkedIn ↗</a>
         </div>
     </nav>
 
-    <!-- SECTION ACCUEIL -->
-    <section id="accueil" class="pt-32 pb-20 md:pt-40 md:pb-32 px-4 relative overflow-hidden">
-        <!-- Formes de fond colorées (Floutées) -->
-        <div class="absolute top-20 right-10 w-72 h-72 bg-brand-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
-        <div class="absolute top-40 -left-10 w-72 h-72 bg-accent rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
-
-        <div class="max-w-4xl mx-auto text-center relative z-10 fade-up">
-            <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-brand-50 border border-brand-100 text-brand-600 text-sm font-semibold mb-8">
-                <span class="relative flex h-2 w-2">
-                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-500 opacity-75"></span>
-                  <span class="relative inline-flex rounded-full h-2 w-2 bg-brand-600"></span>
-                </span>
-                Major de Promotion • Bachelor Communication
-            </div>
-            
-            <h1 class="text-5xl md:text-7xl font-extrabold text-dark tracking-tight mb-8">
-                Profil Hybride <br>
-                <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-500 to-accent">Marketing & Tech.</span>
+    <!-- HERO SECTION (Minimaliste et Typographique) -->
+    <section id="accueil" class="pt-32 md:pt-48 pb-20 px-4 sm:px-8 max-w-7xl mx-auto">
+        <div class="reveal">
+            <h1 class="font-serif text-5xl sm:text-6xl md:text-8xl lg:text-[7rem] leading-[0.95] tracking-tight mb-8">
+                Marketing <br>
+                <span class="italic text-accent">&</span> Stratégie.
             </h1>
             
-            <p class="text-lg md:text-xl text-slate-600 mb-10 max-w-2xl mx-auto leading-relaxed">
-                Étudiant à Sup de Pub. Je conçois des stratégies d'acquisition et je les prototype grâce au No-Code et à l'Intelligence Artificielle.
-            </p>
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-8 mt-12 md:mt-24">
+                <div class="md:col-span-4 md:col-start-9">
+                    <p class="text-lg md:text-xl font-medium leading-relaxed">
+                        Je m'appelle Guillaume. J'étudie à Sup de Pub et je conçois des stratégies d'acquisition que je prototype grâce au code et à l'IA.
+                    </p>
+                    <div class="mt-8 flex gap-4">
+                        <span class="inline-block px-3 py-1 border border-offborder rounded-full text-xs font-medium tracking-wide uppercase">Paris</span>
+                        <span class="inline-block px-3 py-1 border border-offborder rounded-full text-xs font-medium tracking-wide uppercase">Dispo : Alternance</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TRAVAUX (Format Grille / Cartes - L'essence du design Offmenu) -->
+    <section id="travaux" class="py-20 px-4 sm:px-8 max-w-7xl mx-auto">
+        <h2 class="font-serif text-3xl mb-12 border-b border-offborder pb-4 reveal">Sélection de projets</h2>
+
+        <div class="space-y-24">
             
-            <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                <a href="#projets" class="px-8 py-4 bg-dark text-white rounded-xl font-semibold hover:bg-brand-600 transition-colors shadow-lg hover:shadow-xl flex items-center justify-center gap-2">
-                    Voir mes études de cas <i data-lucide="arrow-down" class="w-4 h-4"></i>
-                </a>
+            <!-- PROJET 1 : ACTONOMY -->
+            <div class="group reveal">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                    
+                    <!-- Colonne Image (Prend plus de place) -->
+                    <div class="lg:col-span-8">
+                        <!-- 
+                        COMMENT AJOUTER TON IMAGE ICI :
+                        Remplace la div 'bg-gray-200' par une balise <img src="URL_DE_TON_IMAGE" class="w-full aspect-[4/3] object-cover rounded-xl" alt="Description">
+                        -->
+                        <div class="w-full aspect-[4/3] md:aspect-[16/9] bg-white rounded-xl border border-offborder overflow-hidden flex items-center justify-center transition-transform duration-700 group-hover:scale-[1.02]">
+                            <!-- Placeholder si pas d'image -->
+                            <div class="text-center text-accent/50">
+                                <i data-lucide="image" class="w-12 h-12 mx-auto mb-2 opacity-50"></i>
+                                <span class="text-sm font-medium">Image du site Actonomy</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Colonne Texte -->
+                    <div class="lg:col-span-4 lg:pt-8">
+                        <div class="flex gap-2 mb-6">
+                            <span class="text-xs font-medium uppercase tracking-widest text-accent">MVP Web</span>
+                            <span class="text-xs font-medium uppercase tracking-widest text-accent">— Cleantech</span>
+                        </div>
+                        <h3 class="font-serif text-3xl md:text-4xl mb-4">Actonomy</h3>
+                        <p class="text-accent mb-8 leading-relaxed">
+                            Création complète du site vitrine pour une start-up innovante. Développement réalisé via Prompt Engineering (IA) pour pallier un manque de compétences en code brut, puis déploiement serveur via SFTP.
+                        </p>
+                        <div class="space-y-3 pt-6 border-t border-offborder text-sm">
+                            <div class="flex justify-between"><span class="text-accent">Rôle</span> <span>Dev & UX/UI</span></div>
+                            <div class="flex justify-between"><span class="text-accent">Outils</span> <span>HTML, CSS, Gemini</span></div>
+                        </div>
+                    </div>
+                </div>
             </div>
+
+            <!-- PROJET 2 : LINKEDIN VIRAL -->
+            <div class="group reveal">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                    
+                    <div class="lg:col-span-8 lg:order-last">
+                         <!-- 
+                        COMMENT AJOUTER TON IMAGE ICI :
+                        Remplace la div ci-dessous par la capture d'écran de tes stats LinkedIn.
+                        -->
+                        <div class="w-full aspect-[4/3] md:aspect-[16/9] bg-white rounded-xl border border-offborder overflow-hidden flex items-center justify-center transition-transform duration-700 group-hover:scale-[1.02]">
+                            <div class="text-center text-accent/50">
+                                <i data-lucide="bar-chart-2" class="w-12 h-12 mx-auto mb-2 opacity-50"></i>
+                                <span class="text-sm font-medium">Capture Stats LinkedIn</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="lg:col-span-4 lg:pt-8">
+                        <div class="flex gap-2 mb-6">
+                            <span class="text-xs font-medium uppercase tracking-widest text-accent">Social Media</span>
+                            <span class="text-xs font-medium uppercase tracking-widest text-accent">— Stratégie</span>
+                        </div>
+                        <h3 class="font-serif text-3xl md:text-4xl mb-4">Gestion de Crise</h3>
+                        <p class="text-accent mb-8 leading-relaxed">
+                            Déploiement d'une stratégie de Personal Branding suite à une liquidation d'entreprise. Récit en deux actes générant plus de 23 000 impressions et attirant des recruteurs de haut niveau.
+                        </p>
+                        <div class="space-y-3 pt-6 border-t border-offborder text-sm">
+                            <div class="flex justify-between"><span class="text-accent">Vues org.</span> <span>+23 000</span></div>
+                            <div class="flex justify-between"><span class="text-accent">Partages</span> <span>+74</span></div>
+                            <div class="flex justify-between"><span class="text-accent">Vues profil</span> <span>190 (Conversion)</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </section>
 
-    <!-- SECTION VISION -->
-    <section id="vision" class="py-24 bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-                <div class="fade-up">
-                    <h2 class="text-3xl md:text-4xl font-bold text-dark mb-6">De la théorie à l'exécution technique.</h2>
-                    <div class="w-16 h-1.5 bg-brand-500 rounded-full mb-8"></div>
-                    <p class="text-lg text-slate-600 leading-relaxed mb-6">
-                        Après un BTS NDRC validé en tant que <strong>Major de promotion</strong>, j'ai choisi Sup de Pub pour élever ma vision stratégique.
+    <!-- SECTION A PROPOS -->
+    <section id="apropos" class="py-24 px-4 sm:px-8 bg-white border-y border-offborder mt-12">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-12">
+                <div class="md:col-span-5 reveal">
+                    <h2 class="font-serif text-4xl md:text-5xl mb-6">L'hybridation des compétences.</h2>
+                    <p class="text-lg leading-relaxed text-accent">
+                        Une bonne stratégie n'est rien sans son exécution. C'est pourquoi je couple ma vision marketing à des capacités de prototypage technique.
                     </p>
-                    <p class="text-lg text-slate-600 leading-relaxed mb-8">
-                        Dans un écosystème digital complexe, une bonne idée ne suffit plus. C'est pourquoi j'ai développé une double compétence : imaginer la stratégie (Personal Branding, lignes éditoriales) et <strong>maîtriser son exécution</strong> (prototypage IA, intégration HTML/CSS).
-                    </p>
-                    <a href="https://www.linkedin.com/in/guillaume-de-l-estourbeillon" target="_blank" class="inline-flex items-center gap-2 text-brand-600 font-semibold hover:text-brand-900 transition-colors">
-                        <i data-lucide="linkedin" class="w-5 h-5"></i> Mon parcours sur LinkedIn
-                    </a>
                 </div>
-                <!-- Image illustrative / Abstrait -->
-                <div class="relative rounded-2xl bg-slate-100 aspect-square md:aspect-video lg:aspect-square overflow-hidden fade-up">
-                     <div class="absolute inset-0 bg-gradient-to-br from-brand-100 to-accent/20"></div>
-                     <!-- Ici tu pourras mettre une vraie photo pro de toi plus tard -->
-                     <div class="absolute inset-0 flex items-center justify-center">
-                         <i data-lucide="rocket" class="w-32 h-32 text-brand-500/20"></i>
-                     </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- SECTION PROJETS -->
-    <section id="projets" class="py-24 bg-slate-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center max-w-2xl mx-auto mb-16 fade-up">
-                <h2 class="text-3xl md:text-4xl font-bold text-dark mb-4">Mes Réalisations</h2>
-                <p class="text-slate-600">Cas pratiques alliant stratégie digitale, gestion de crise et développement technique.</p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                 
-                <!-- PROJET 1 -->
-                <div class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-100 group fade-up">
-                    <div class="h-48 bg-gradient-to-r from-slate-800 to-dark flex items-center justify-center relative overflow-hidden">
-                        <i data-lucide="code-2" class="w-16 h-16 text-white/20 transform group-hover:scale-110 transition-transform"></i>
-                    </div>
-                    <div class="p-8">
-                        <div class="flex gap-2 mb-4">
-                            <span class="px-3 py-1 bg-brand-50 text-brand-600 rounded-full text-xs font-bold uppercase tracking-wide">Web MVP</span>
-                            <span class="px-3 py-1 bg-green-50 text-green-600 rounded-full text-xs font-bold uppercase tracking-wide">Cleantech</span>
+                <div class="md:col-span-6 md:col-start-7 reveal">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
+                        <div>
+                            <h4 class="font-medium text-sm tracking-widest uppercase mb-4 border-b border-offborder pb-2">Expertise</h4>
+                            <ul class="space-y-2 text-accent">
+                                <li>Stratégie d'Acquisition</li>
+                                <li>Personal Branding</li>
+                                <li>Gestion de Crise</li>
+                                <li>Ligne Éditoriale</li>
+                            </ul>
                         </div>
-                        <h3 class="text-2xl font-bold text-dark mb-3">Site vitrine Actonomy</h3>
-                        <p class="text-slate-600 mb-6 line-clamp-3">
-                            Développement complet du MVP digital pour une start-up. N'ayant pas les compétences en code pur, j'ai entièrement généré le site via <strong>Prompt Engineering (IA)</strong>.
-                        </p>
-                        <div class="space-y-2 mb-6">
-                            <div class="flex items-center gap-2 text-sm text-slate-700"><i data-lucide="check" class="w-4 h-4 text-brand-500"></i> Conception UX/UI</div>
-                            <div class="flex items-center gap-2 text-sm text-slate-700"><i data-lucide="check" class="w-4 h-4 text-brand-500"></i> Code HTML/CSS assisté par Gemini</div>
-                            <div class="flex items-center gap-2 text-sm text-slate-700"><i data-lucide="check" class="w-4 h-4 text-brand-500"></i> Déploiement serveur SFTP</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- PROJET 2 -->
-                <div class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-100 group fade-up">
-                    <div class="h-48 bg-gradient-to-r from-brand-500 to-accent flex items-center justify-center relative overflow-hidden">
-                        <i data-lucide="trending-up" class="w-16 h-16 text-white/30 transform group-hover:scale-110 transition-transform"></i>
-                    </div>
-                    <div class="p-8">
-                        <div class="flex gap-2 mb-4">
-                            <span class="px-3 py-1 bg-slate-100 text-slate-600 rounded-full text-xs font-bold uppercase tracking-wide">Social Media</span>
-                            <span class="px-3 py-1 bg-brand-50 text-brand-600 rounded-full text-xs font-bold uppercase tracking-wide">Crise</span>
-                        </div>
-                        <h3 class="text-2xl font-bold text-dark mb-3">Campagne de Rebond LinkedIn</h3>
-                        <p class="text-slate-600 mb-6">
-                            Suite à une liquidation d'entreprise, déploiement d'une stratégie de <strong>Personal Branding</strong> en deux actes générant des résultats organiques majeurs.
-                        </p>
-                        <div class="grid grid-cols-2 gap-4 mb-6">
-                            <div class="bg-slate-50 p-3 rounded-lg border border-slate-100">
-                                <p class="text-xl font-bold text-brand-600">+23k</p>
-                                <p class="text-xs text-slate-500 font-medium">Vues organiques</p>
-                            </div>
-                            <div class="bg-slate-50 p-3 rounded-lg border border-slate-100">
-                                <p class="text-xl font-bold text-brand-600">190</p>
-                                <p class="text-xs text-slate-500 font-medium">Vues de profil pro.</p>
-                            </div>
+                        <div>
+                            <h4 class="font-medium text-sm tracking-widest uppercase mb-4 border-b border-offborder pb-2">Technique</h4>
+                            <ul class="space-y-2 text-accent">
+                                <li>Prompt Engineering</li>
+                                <li>HTML / CSS / Web MVP</li>
+                                <li>Déploiement SFTP</li>
+                                <li>Suite Adobe & Notion</li>
+                            </ul>
                         </div>
                     </div>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <!-- SECTION COMPÉTENCES -->
-    <section id="competences" class="py-24 bg-white border-t border-slate-100">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-3xl font-bold text-center text-dark mb-16 fade-up">Boîte à outils</h2>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 fade-up">
-                <div class="p-8 rounded-2xl bg-brand-50 border border-brand-100">
-                    <div class="w-12 h-12 bg-white rounded-xl shadow-sm flex items-center justify-center mb-6">
-                        <i data-lucide="lightbulb" class="w-6 h-6 text-brand-600"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-dark mb-3">Stratégie</h3>
-                    <p class="text-slate-600">Lignes éditoriales, Personal Branding, Inbound Marketing, SEO, Gestion de crise.</p>
-                </div>
-
-                <div class="p-8 rounded-2xl bg-slate-50 border border-slate-200">
-                    <div class="w-12 h-12 bg-white rounded-xl shadow-sm flex items-center justify-center mb-6">
-                        <i data-lucide="terminal-square" class="w-6 h-6 text-slate-700"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-dark mb-3">Technique</h3>
-                    <p class="text-slate-600">Prompt Engineering (Gemini), MVP Web (HTML/CSS), Déploiement SFTP, No-Code.</p>
-                </div>
-
-                <div class="p-8 rounded-2xl bg-cyan-50 border border-cyan-100">
-                    <div class="w-12 h-12 bg-white rounded-xl shadow-sm flex items-center justify-center mb-6">
-                        <i data-lucide="pen-tool" class="w-6 h-6 text-accent"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-dark mb-3">Création</h3>
-                    <p class="text-slate-600">Adobe Photoshop, Lightroom, Canva Pro, Google Workspace, Notion.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- SECTION CONTACT -->
-    <section id="contact" class="py-24 bg-dark text-white relative overflow-hidden">
-        <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-5"></div>
-        
-        <div class="max-w-3xl mx-auto px-4 text-center relative z-10 fade-up">
-            <span class="text-brand-500 font-bold tracking-widest text-sm uppercase mb-4 block">Échangeons</span>
-            <h2 class="text-4xl md:text-5xl font-bold mb-8">Un projet ? Une opportunité ?</h2>
-            <p class="text-slate-400 text-lg mb-12">
-                Actuellement en alternance chez Wemo Neuf, je reste ouvert aux échanges avec mon réseau professionnel.
-            </p>
+    <!-- FOOTER / CONTACT -->
+    <section id="contact" class="py-32 px-4 sm:px-8 max-w-7xl mx-auto text-center">
+        <div class="reveal">
+            <p class="text-sm font-medium tracking-widest uppercase text-accent mb-8">Discutons de vos enjeux</p>
+            <button onclick="copyEmail()" class="font-serif text-4xl sm:text-6xl md:text-8xl hover:opacity-50 transition-opacity cursor-pointer group relative inline-block">
+                <span>Dites Bonjour.</span>
+                <!-- Message de confirmation de copie (absolu par rapport au texte) -->
+                <span id="copy-msg" class="absolute -bottom-8 left-1/2 transform -translate-x-1/2 text-sm font-sans text-accent opacity-0 transition-opacity whitespace-nowrap">
+                    Email copié dans le presse-papier
+                </span>
+            </button>
             
-            <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                <button onclick="copyEmail()" class="px-8 py-4 bg-brand-600 hover:bg-brand-500 rounded-xl font-bold transition-colors flex items-center justify-center gap-3">
-                    <i data-lucide="mail" class="w-5 h-5"></i>
-                    <span id="btn-text">Copier mon email</span>
-                </button>
-                <a href="https://www.linkedin.com/in/guillaume-de-l-estourbeillon" target="_blank" class="px-8 py-4 bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-xl font-bold transition-colors flex items-center justify-center gap-3">
-                    <i data-lucide="linkedin" class="w-5 h-5 text-[#0A66C2]"></i>
-                    LinkedIn
-                </a>
+            <div class="mt-32 pt-8 border-t border-offborder flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-accent">
+                <p>© 2026 G. de l'Estourbeillon</p>
+                <div class="flex gap-6">
+                    <a href="https://www.linkedin.com/in/guillaume-de-l-estourbeillon" target="_blank" class="hover:text-offblack transition-colors">LinkedIn</a>
+                    <a href="#" class="hover:text-offblack transition-colors">Sup de Pub</a>
+                </div>
             </div>
         </div>
     </section>
-
-    <footer class="bg-dark border-t border-slate-800 py-8">
-        <div class="max-w-7xl mx-auto px-4 text-center text-sm text-slate-500">
-            <p>© 2026 Guillaume de l'Estourbeillon. Tous droits réservés.</p>
-        </div>
-    </footer>
 
     <!-- SCRIPT -->
     <script>
         lucide.createIcons();
 
-        // Menu mobile
+        // Menu mobile simple
         const btn = document.getElementById('mobile-btn');
         const menu = document.getElementById('mobile-menu');
         btn.addEventListener('click', () => {
@@ -286,27 +268,23 @@
             });
         });
 
-        // Animation au scroll (Fade-up)
-        const observerOptions = {
-            root: null,
-            rootMargin: '0px',
-            threshold: 0.1
-        };
-
-        const observer = new IntersectionObserver((entries, observer) => {
+        // Animation douce au scroll (Reveal)
+        const revealElements = document.querySelectorAll('.reveal');
+        const revealObserver = new IntersectionObserver((entries, observer) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
+                    entry.target.classList.add('active');
                     observer.unobserve(entry.target);
                 }
             });
-        }, observerOptions);
-
-        document.querySelectorAll('.fade-up').forEach(element => {
-            observer.observe(element);
+        }, {
+            threshold: 0.15,
+            rootMargin: "0px 0px -50px 0px"
         });
+        
+        revealElements.forEach(el => revealObserver.observe(el));
 
-        // Copie email
+        // Fonction copie email minimaliste
         function copyEmail() {
             const email = "gestourbeillon@gmail.com";
             const tempInput = document.createElement("input");
@@ -316,11 +294,11 @@
             document.execCommand("copy");
             document.body.removeChild(tempInput);
             
-            const btnText = document.getElementById('btn-text');
-            btnText.innerText = "Email copié !";
+            const msg = document.getElementById('copy-msg');
+            msg.style.opacity = '1';
             setTimeout(() => {
-                btnText.innerText = "Copier mon email";
-            }, 3000);
+                msg.style.opacity = '0';
+            }, 2500);
         }
     </script>
 </body>
