@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guillaume de l'Estourbeillon - Portfolio</title>
+    <!-- Intégration de Tailwind CSS via CDN pour le style -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Intégration d'icônes (Lucide) -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        /* Personnalisation légère des couleurs de base de Tailwind */
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#1e3a8a', /* Un beau bleu marine professionnel */
+                        secondary: '#3b82f6', /* Un bleu plus clair pour les accents */
+                        dark: '#111827',
+                        light: '#f3f4f6'
+                    }
+                }
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans antialiased">
+
+    <!-- BARRE DE NAVIGATION (FIXE) -->
+    <nav class="fixed w-full bg-white/90 backdrop-blur-sm shadow-sm z-50">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo / Nom -->
+                <a href="#accueil" class="text-xl font-bold text-primary tracking-tight">
+                    G. de l'Estourbeillon
+                </a>
+                
+                <!-- Menu Desktop -->
+                <div class="hidden md:flex space-x-8">
+                    <a href="#apropos" class="text-gray-600 hover:text-secondary transition">À propos</a>
+                    <a href="#projets" class="text-gray-600 hover:text-secondary transition">Projets</a>
+                    <a href="#competences" class="text-gray-600 hover:text-secondary transition">Compétences</a>
+                    <a href="#contact" class="px-4 py-2 bg-primary text-white rounded-md hover:bg-secondary transition shadow-sm">Me contacter</a>
+                </div>
+
+                <!-- Bouton Menu Mobile (Burger) -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-gray-600 hover:text-primary focus:outline-none">
+                        <i data-lucide="menu"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Menu Mobile (Caché par défaut) -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t">
+            <a href="#apropos" class="block px-4 py-3 text-gray-600 hover:bg-gray-50">À propos</a>
+            <a href="#projets" class="block px-4 py-3 text-gray-600 hover:bg-gray-50">Projets</a>
+            <a href="#competences" class="block px-4 py-3 text-gray-600 hover:bg-gray-50">Compétences</a>
+            <a href="#contact" class="block px-4 py-3 text-primary font-semibold hover:bg-gray-50">Me contacter</a>
+        </div>
+    </nav>
+
+    <!-- SECTION 1 : ACCUEIL (HERO) -->
+    <section id="accueil" class="pt-32 pb-20 md:pt-40 md:pb-28 px-4 max-w-6xl mx-auto flex flex-col-reverse md:flex-row items-center gap-12">
+        <!-- Texte d'accroche -->
+        <div class="flex-1 text-center md:text-left">
+            <span class="inline-block py-1 px-3 rounded-full bg-blue-100 text-secondary font-semibold text-sm mb-6 border border-blue-200">
+                Major de Promotion 🏆
+            </span>
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-dark leading-tight mb-6">
+                Profil Hybride <br>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">Marketing & Tech.</span>
+            </h1>
+            <p class="text-lg text-gray-600 mb-8 max-w-xl mx-auto md:mx-0 leading-relaxed">
+                Étudiant en 3ème année de Bachelor Communication & Stratégie des Marques à Sup de Pub. 
+                Passionné par le Growth Marketing, l'Acquisition digitale et le prototypage web (No-Code/IA).
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+                <a href="#projets" class="px-8 py-3 bg-primary text-white rounded-lg font-medium hover:bg-secondary transition shadow-md flex items-center justify-center gap-2">
+                    Voir mes projets <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                </a>
+                <a href="https://www.linkedin.com/in/guillaume-de-l-estourbeillon" target="_blank" class="px-8 py-3 bg-white text-gray-700 border border-gray-300 rounded-lg font-medium hover:bg-gray-50 transition flex items-center justify-center gap-2">
+                    <i data-lucide="linkedin" class="w-5 h-5 text-[#0A66C2]"></i> Mon LinkedIn
+                </a>
+            </div>
+        </div>
+        
+        <!-- Image de profil ou illustration -->
+        <div class="flex-1 flex justify-center md:justify-end">
+            <!-- Remplacer le src par l'URL de ta vraie photo de profil (tu la mettras sur github aussi) -->
+            <div class="relative w-64 h-64 md:w-80 md:h-80">
+                <div class="absolute inset-0 bg-gradient-to-tr from-primary to-secondary rounded-full blur-2xl opacity-20"></div>
+                <!-- Image de remplacement temporaire -->
+                <img src="https://ui-avatars.com/api/?name=Guillaume+E&background=1e3a8a&color=fff&size=512" alt="Guillaume" class="relative rounded-full object-cover w-full h-full shadow-2xl border-4 border-white">
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 2 : À PROPOS -->
+    <section id="apropos" class="py-20 bg-white">
+        <div class="max-w-4xl mx-auto px-4 text-center">
+            <h2 class="text-3xl font-bold text-dark mb-4">À propos de moi</h2>
+            <div class="w-20 h-1 bg-secondary mx-auto mb-8 rounded"></div>
+            <p class="text-lg text-gray-600 leading-relaxed mb-6 text-justify md:text-center">
+                Après l'obtention de mon BTS NDRC en tant que <strong>Major de promotion</strong>, j'ai choisi d'intégrer Sup de Pub pour approfondir ma vision stratégique des marques. Ce qui me caractérise ? Ma capacité à lier la stratégie de communication globale avec des <strong>compétences opérationnelles techniques</strong>.
+            </p>
+            <p class="text-lg text-gray-600 leading-relaxed text-justify md:text-center">
+                Je ne me contente pas de concevoir des stratégies, j'aime aussi les exécuter : que ce soit en créant un site web de A à Z à l'aide de l'Intelligence Artificielle, ou en déployant une stratégie d'acquisition sur LinkedIn générant des dizaines de milliers de vues organiques.
+            </p>
+        </div>
+    </section>
+
+    <!-- SECTION 3 : PROJETS (Études de cas) -->
+    <section id="projets" class="py-20 bg-gray-50">
+        <div class="max-w-6xl mx-auto px-4">
+            <h2 class="text-3xl font-bold text-dark mb-4 text-center">Études de cas</h2>
+            <div class="w-20 h-1 bg-secondary mx-auto mb-12 rounded"></div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                
+                <!-- Projet 1 : Actonomy -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition duration-300 transform hover:-translate-y-1 border border-gray-100">
+                    <!-- Optionnel : Ajouter une image du site Actonomy ici plus tard -->
+                    <div class="h-48 bg-gray-200 flex items-center justify-center relative overflow-hidden">
+                         <!-- Illustration de code -->
+                        <div class="absolute inset-0 bg-primary opacity-10"></div>
+                        <i data-lucide="layout-template" class="w-16 h-16 text-primary opacity-50"></i>
+                    </div>
+                    <div class="p-8">
+                        <div class="flex items-center gap-2 mb-3">
+                            <span class="text-xs font-bold uppercase tracking-wider text-secondary bg-blue-50 px-2 py-1 rounded">Web & Dev</span>
+                            <span class="text-xs font-bold uppercase tracking-wider text-green-600 bg-green-50 px-2 py-1 rounded">Cleantech</span>
+                        </div>
+                        <h3 class="text-2xl font-bold text-dark mb-3">Site vitrine Actonomy</h3>
+                        <p class="text-gray-600 mb-6 leading-relaxed">
+                            Création complète du MVP digital pour une start-up innovante dans le traitement de l'eau. Conception UX/UI et développement du site internet <strong>entièrement assisté par l'Intelligence Artificielle</strong> (Prompt Engineering), palliant un manque de compétences en code pur. Déploiement autonome via SFTP.
+                        </p>
+                        <ul class="space-y-2 text-sm text-gray-600">
+                            <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-green-500"></i> Conception Arborescence & UX</li>
+                            <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-green-500"></i> Prompt Engineering HTML/CSS</li>
+                            <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-green-500"></i> Hébergement et mise en production</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Projet 2 : Campagne LinkedIn -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition duration-300 transform hover:-translate-y-1 border border-gray-100">
+                    <div class="h-48 bg-gray-200 flex items-center justify-center relative overflow-hidden">
+                         <div class="absolute inset-0 bg-blue-500 opacity-10"></div>
+                         <i data-lucide="trending-up" class="w-16 h-16 text-blue-600 opacity-50"></i>
+                    </div>
+                    <div class="p-8">
+                         <div class="flex items-center gap-2 mb-3">
+                            <span class="text-xs font-bold uppercase tracking-wider text-blue-600 bg-blue-50 px-2 py-1 rounded">Social Media</span>
+                            <span class="text-xs font-bold uppercase tracking-wider text-purple-600 bg-purple-50 px-2 py-1 rounded">Crise</span>
+                        </div>
+                        <h3 class="text-2xl font-bold text-dark mb-3">Campagne LinkedIn Virale</h3>
+                        <p class="text-gray-600 mb-6 leading-relaxed">
+                            Suite à la liquidation judiciaire de ma précédente entreprise, déploiement d'une stratégie de <strong>Personal Branding</strong> d'urgence pour retrouver une alternance. Récit en deux actes basé sur le "Storytelling" et la résilience, générant des résultats organiques exceptionnels.
+                        </p>
+                        <ul class="space-y-2 text-sm text-gray-600">
+                            <li class="flex items-center gap-2"><i data-lucide="bar-chart" class="w-4 h-4 text-blue-500"></i> +23 000 impressions organiques cumulées</li>
+                            <li class="flex items-center gap-2"><i data-lucide="share-2" class="w-4 h-4 text-blue-500"></i> +74 republications (partages)</li>
+                            <li class="flex items-center gap-2"><i data-lucide="users" class="w-4 h-4 text-blue-500"></i> Conversion : +190 vues de profil ciblées</li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 4 : COMPÉTENCES -->
+    <section id="competences" class="py-20 bg-white">
+        <div class="max-w-6xl mx-auto px-4">
+            <h2 class="text-3xl font-bold text-dark mb-4 text-center">Mes Compétences</h2>
+            <div class="w-20 h-1 bg-secondary mx-auto mb-12 rounded"></div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Bloc Stratégie -->
+                <div class="p-6 border border-gray-100 rounded-xl bg-gray-50">
+                    <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
+                        <i data-lucide="target" class="w-6 h-6 text-primary"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-dark mb-2">Stratégie & Marketing</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">
+                        Création de lignes éditoriales, études de marché, Personal Branding, et stratégies d'acquisition organique.
+                    </p>
+                </div>
+                <!-- Bloc Tech -->
+                <div class="p-6 border border-gray-100 rounded-xl bg-gray-50">
+                    <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
+                        <i data-lucide="code-2" class="w-6 h-6 text-primary"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-dark mb-2">Tech & IA</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">
+                        Prompt Engineering (Gemini/ChatGPT), prototypage web (HTML/CSS), déploiement SFTP, et logique No-Code.
+                    </p>
+                </div>
+                <!-- Bloc Outils -->
+                <div class="p-6 border border-gray-100 rounded-xl bg-gray-50">
+                    <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
+                        <i data-lucide="wrench" class="w-6 h-6 text-primary"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-dark mb-2">Outils & Data</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">
+                        Suite Adobe (Photoshop, Lightroom), Canva, Google Analytics, Notion, Microsoft 365, Google Workspace.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 5 : CONTACT & FOOTER -->
+    <section id="contact" class="py-20 bg-dark text-white">
+        <div class="max-w-4xl mx-auto px-4 text-center">
+            <h2 class="text-3xl font-bold mb-6">Prêt à échanger ?</h2>
+            <p class="text-gray-400 mb-10 max-w-xl mx-auto">
+                Actuellement en alternance chez Wemo Neuf, je reste toujours ouvert aux échanges avec des passionnés de marketing et de technologies.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-6 mb-16">
+                <!-- Bouton Email -->
+                <button onclick="copyEmail()" class="flex items-center justify-center gap-3 px-6 py-4 bg-gray-800 hover:bg-gray-700 rounded-lg transition border border-gray-700 w-full sm:w-auto">
+                    <i data-lucide="mail" class="w-5 h-5 text-secondary"></i>
+                    <span id="email-text">gestourbeillon@gmail.com</span>
+                    <i data-lucide="copy" class="w-4 h-4 text-gray-500 ml-2"></i>
+                </button>
+                <!-- Bouton LinkedIn -->
+                <a href="https://www.linkedin.com/in/guillaume-de-l-estourbeillon" target="_blank" class="flex items-center justify-center gap-3 px-6 py-4 bg-[#0A66C2] hover:bg-blue-700 rounded-lg transition w-full sm:w-auto font-medium">
+                    <i data-lucide="linkedin" class="w-5 h-5"></i>
+                    Connectons-nous
+                </a>
+            </div>
+            
+            <div class="border-t border-gray-800 pt-8 mt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-sm text-gray-500">© 2026 Guillaume de l'Estourbeillon. Tous droits réservés.</p>
+                <p class="text-sm text-gray-500 flex items-center gap-1">
+                    Conçu avec <i data-lucide="heart" class="w-3 h-3 text-red-500"></i> et un peu d'IA
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SCRIPT POUR L'INTERACTIVITÉ -->
+    <script>
+        // Initialisation des icônes Lucide
+        lucide.createIcons();
+
+        // Gestion du Menu Mobile
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+
+        // Fermer le menu mobile quand on clique sur un lien
+        const mobileLinks = menu.querySelectorAll('a');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                menu.classList.add('hidden');
+            });
+        });
+
+        // Fonction pour copier l'adresse email (Message box au lieu de alert)
+        function copyEmail() {
+            const email = "gestourbeillon@gmail.com";
+            // Création d'un élément temporaire pour copier le texte
+            const tempInput = document.createElement("input");
+            tempInput.value = email;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand("copy");
+            document.body.removeChild(tempInput);
+            
+            // Changement visuel pour confirmer la copie
+            const emailText = document.getElementById('email-text');
+            const originalText = emailText.innerText;
+            emailText.innerText = "Email copié !";
+            emailText.classList.add('text-green-400');
+            
+            setTimeout(() => {
+                emailText.innerText = originalText;
+                emailText.classList.remove('text-green-400');
+            }, 2000);
+        }
+    </script>
+</body>
+</html>
